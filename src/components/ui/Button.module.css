@@ -1,4 +1,5 @@
 .button {
+  border: none;
   border-radius: 50vh;
   background-color: white;
   color: black;
