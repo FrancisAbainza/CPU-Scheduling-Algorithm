@@ -1,0 +1,26 @@
+.processes {
+  display: flex;
+  margin-top: var(--space-xs);
+}
+
+.process {
+  flex: 1;
+  border: 1px solid white;
+  padding: var(--space-xs);
+  text-align: center;
+}
+
+.filler {
+  flex: .5;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-xs);
+}
+
+.time {
+  flex: 1;
+  text-align: center;
+}

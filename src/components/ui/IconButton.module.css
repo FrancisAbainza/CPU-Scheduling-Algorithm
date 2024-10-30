@@ -1,0 +1,14 @@
+.iconBtn {
+  background-color: transparent;
+  border: none;
+  border-radius: 50vh;
+  cursor: pointer;
+}
+
+.iconBtn:hover {
+  background-color: rgb(56, 56, 56);
+}
+
+img {
+  display: block;
+}

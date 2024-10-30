@@ -1,0 +1,20 @@
+.home {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+}
+
+.visible {
+  animation: moveUpReveal 1s ease-in-out forwards;
+}
+
+@keyframes moveUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
