@@ -74,7 +74,8 @@ export default function PriorityContextProvider({ children }) {
 
       // If there is a process inside the "readyQueue" do:
       if (readyQueue.length > 0) {
-        // Sort the "readyQueue" in ascending order based on their priority
+        // Sort the "readyQueue" in ascending order based on their arrival time, then priority
+        readyQueue.sort((a, b) => a.at - b.at);
         readyQueue.sort((a, b) => a.pl - b.pl);
         // Get the highest priority process
         highestPriority = { ...readyQueue[0] };
