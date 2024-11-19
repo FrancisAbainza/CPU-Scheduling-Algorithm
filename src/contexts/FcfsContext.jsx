@@ -1,6 +1,6 @@
 import { useState, createContext, useContext } from "react";
 
-const PriorityCtx = createContext({
+const FcfsCtx = createContext({
   ganttChart: [],
   table: [],
   averages: [],
@@ -8,11 +8,11 @@ const PriorityCtx = createContext({
   calculate: () => { },
 });
 
-export function usePriority() {
-  return useContext(PriorityCtx);
+export function useFcfs() {
+  return useContext(FcfsCtx);
 }
 
-export default function PriorityContextProvider({ children }) {
+export default function FcfsContextProvider({ children }) {
   const [ganttChart, setGanttChart] = useState([]);
   const [table, setTable] = useState([]);
   const [averages, setAverages] = useState({});
@@ -34,7 +34,6 @@ export default function PriorityContextProvider({ children }) {
   }
 
   function calculate(data) {
-
     /* 
     Received data structure
       [
@@ -43,14 +42,12 @@ export default function PriorityContextProvider({ children }) {
           pid: "P1",
           at: 0,
           bt: 3,
-          priority: 1,
         },
         {
           id: crypto.randomUUID(),
           pid: "P2",
           at: 0,
           bt: 3,
-          priority: 2,
         }
       ]
     */
@@ -58,7 +55,7 @@ export default function PriorityContextProvider({ children }) {
     let initialGanttChart = [];
     let processes = [...data];
     let readyQueue = [];
-    let highestPriority = {};
+    let earliestProcess = {};
     let time = 0;
     let initialTable = [];
 
@@ -70,24 +67,26 @@ export default function PriorityContextProvider({ children }) {
       processes = processes.filter(process => process.at > time);
 
       if (readyQueue.length > 0) {
-        readyQueue.sort((a, b) => a.pl - b.pl || a.at - b.at);
-        highestPriority = { ...readyQueue[0] };
+        readyQueue.sort((a, b) => a.at - b.at);
+        earliestProcess = { ...readyQueue[0] };
 
         readyQueue.shift();
 
         initialGanttChart.push({
-          id: highestPriority.id,
-          pid: highestPriority.pid,
+          id: earliestProcess.id,
+          pid: earliestProcess.pid,
           st: time,
-          ct: time + highestPriority.bt,
+          ct: time + earliestProcess.bt,
         });
-        
-        time += highestPriority.bt;
+
+        time += earliestProcess.bt;
       } else {
         time++;
       }
     }
 
+    console.log(initialGanttChart)
+    console.log(data)
     data.forEach(
       (process) => {
         initialTable.push({
@@ -102,7 +101,7 @@ export default function PriorityContextProvider({ children }) {
           get wt() {
             return (this.ct - this.at) - this.bt;
           }
-        })
+        });
       }
     )
 
@@ -123,8 +122,8 @@ export default function PriorityContextProvider({ children }) {
   }
 
   return (
-    <PriorityCtx.Provider value={ctxValue}>
+    <FcfsCtx.Provider value={ctxValue}>
       {children}
-    </PriorityCtx.Provider>
+    </FcfsCtx.Provider>
   );
 }

@@ -1,0 +1,24 @@
+.container {
+  margin-top: var(--space-xs);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.row > div {
+  border: 1px solid white;
+  padding: var(--space-xs);
+}
+
+.row > .header {
+  background-color: white;
+  color: black;
+}
+
+.average {
+  grid-column: span 4;
+  padding: var(--space-xs);
+  text-align: right;
+}

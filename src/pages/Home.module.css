@@ -1,11 +1,19 @@
 .home {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   opacity: 0;
 }
 
 .visible {
   animation: moveUpReveal 1s ease-in-out forwards;
+}
+
+@media only screen and (min-width: 1300px) {
+  .home {
+    flex-direction: row;
+  }
 }
 
 @keyframes moveUpReveal {

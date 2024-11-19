@@ -1,8 +1,8 @@
 import classes from "./Table.module.css";
-import { usePriority } from "../contexts/PriorityContext";
+import { usePriority } from "../../contexts/PriorityContext";
 
 export default function Table() {
-  const { table, averages } = usePriority();
+  let { table, averages } = usePriority()
 
   if (table.length < 1) {
     return;

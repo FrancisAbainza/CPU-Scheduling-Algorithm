@@ -1,0 +1,29 @@
+.table {
+  overflow-x: auto;
+}
+
+.container {
+  margin-top: var(--space-xs);
+  min-width: 450px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.row > div {
+  border: 1px solid white;
+  padding: var(--space-xs);
+}
+
+.row > .header {
+  background-color: white;
+  color: black;
+}
+
+.average {
+  grid-column: span 5;
+  padding: var(--space-xs);
+  text-align: right;
+}

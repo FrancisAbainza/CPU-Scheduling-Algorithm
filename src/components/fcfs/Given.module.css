@@ -5,8 +5,7 @@
 }
 
 .headers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) 24px;
+  display: flex;
   gap: var(--space-xs);
 }
 
@@ -15,9 +14,7 @@
 }
 
 .process {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
-  grid-auto-columns: min-content;
+  display: flex;
   gap: var(--space-xs);
   border: none;
   min-width: 0px;

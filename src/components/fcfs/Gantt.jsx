@@ -1,10 +1,10 @@
 import classes from "./Gantt.module.css";
-import { usePriority } from "../contexts/PriorityContext";
+import { useFcfs } from "../../contexts/FcfsContext.jsx";
 
 export default function Gantt() {
-  const { ganttChart } = usePriority();
+  let { ganttChart } = useFcfs()
   const dividedGanttChart = [];
-
+  
   function checkCompletionTime(completionTime, startingTime) {
     if (completionTime !== startingTime) {
       return `${completionTime} | ${startingTime}`;

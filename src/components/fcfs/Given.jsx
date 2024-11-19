@@ -1,32 +1,33 @@
 import { useState } from "react";
-import Button from "./ui/Button.jsx";
-import IconButton from "./ui/IconButton.jsx"
+import Button from "../ui/Button.jsx";
+import IconButton from "../ui/IconButton.jsx"
 import classes from "./Given.module.css";
-import deleteImg from "../assets/delete.svg"
-import { usePriority } from "../contexts/PriorityContext.jsx";
+import deleteImg from "../../assets/delete.svg"
+import { useFcfs } from "../../contexts/FcfsContext.jsx";
 
 export default function Given() {
-  const { reset, calculatePriority } = usePriority();
+  let { reset, calculate } = useFcfs()
   const [processes, setProcesses] = useState([{ id: crypto.randomUUID() }]);
 
   function handleCalculate(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const calculateData = [];
+    const data = [];
 
     processes.forEach(
       ({ id }) => {
-        calculateData.push({
+        const processData = {
           id,
           pid: formData.get(`pid_${id}`),
           at: parseInt(formData.get(`at_${id}`)),
           bt: parseInt(formData.get(`bt_${id}`)),
-          pl: parseInt(formData.get(`pl_${id}`)),
-        });
+        };
+      
+        data.push(processData);
       }
     )
 
-    calculatePriority(calculateData);
+    calculate(data);
   }
 
   function handleAddProcess(event) {
@@ -64,14 +65,12 @@ export default function Given() {
         <label>Process ID</label>
         <label>Arrival Time</label>
         <label>CPU BT</label>
-        <label>Priority</label>
       </div>
       {processes.map(({ id }) => (
         <fieldset key={id} id={id} className={classes.process}>
           <input type="text" name={`pid_${id}`} min="0" required />
           <input type="number" name={`at_${id}`} min="0" required />
           <input type="number" name={`bt_${id}`} min="1" required />
-          <input type="number" name={`pl_${id}`} min="1" required />
           <IconButton type="button" src={deleteImg} alt="delete process" title="Remove" onClick={() => handleDeleteProcess(id)} />
         </fieldset>
       ))}
